@@ -1,0 +1,12 @@
+###
+POST http://localhost:4008/newbook
+Content-Type: application/json
+
+{
+    "book titel": "The Ethical Cleansing of Palestine",
+    "author": "Ilan Pappé"
+}
+
+
+###
+GET http://localhost:4008/books
