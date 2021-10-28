@@ -1,12 +1,29 @@
 ###
-POST http://localhost:4008/newbook
+POST http://localhost:4008/books
 Content-Type: application/json
 
 {
-    "book titel": "The Ethical Cleansing of Palestine",
-    "author": "Ilan Pappé"
+    "title": "Mulheres do Brasil: A história não contada ",
+    "author": "Paulo Rezzutti"
 }
 
 
 ###
 GET http://localhost:4008/books
+
+###
+GET http://localhost:4008/search
+Content-Type: application/json
+
+{
+    "author": "Paulo Rezzutti"
+}
+
+###
+PATCH http://localhost:4008/edit
+Content-Type: application/json
+
+{
+    "_id": "617a65de49316592abd01164",
+    "_id": "001"
+}
