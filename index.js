@@ -1,8 +1,7 @@
 import express from "express";
 import Database from "./connection.js";
-import books from "./models/books.js";
 import Book from "./models/books.js";
-import seed from "./seeders/seed.js";
+import Seed from "./seeders/seed.js";
 
 const server = express();
 server.use(express.json());
@@ -35,20 +34,31 @@ server.get("/books", async (req, res) => {
   res.json(books);
 });
 
-// Will not show Paulo Rezzutti if we search only for Paulo
-server.get("/search", async (req, res) => {
-  const result = await Book.find(req.body);
-  res.json(result);
+// Searching
+server.post("/search", async (req, res) => {
+  const result = await Book.find({ author: /Paulo/ });
+  result.length;
+  result.map((r) => r.author).sort();
+  res.send(result);
+});
+
+// Delete one
+server.delete("/delete", async (req, res) => {
+  const deleteIt = await Book.findByIdAndRemove(req.body._id);
+  console.log("Did we find it?", deleteIt);
+  res.json("This might have been deleted");
 });
 
 // Search and edit
-server.patch("/edit", (req, res) => {
-  const resultToEdit = await Book.findOne({ _id: "617a65de49316592abd01164" });
-  resultToEdit._id = "001";
-  await resultToEdit.save();
-  // (req.body[0]);
-  // resultToEdit.create(req.body[1]);
-  res.send("Might have been changed");
+server.patch("/edit", async (req, res) => {
+  const resultToEdit = await Book.findOneAndUpdate(
+    { _id: req.body._id },
+    { author: req.body.author }
+  );
+  if (resultToEdit) {
+    return res.status(200).json(resultToEdit);
+  }
+  res.status(400).json({ message: "Cannot update" });
 });
 
 server.listen(4008, () => {

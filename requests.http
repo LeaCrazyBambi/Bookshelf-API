@@ -12,18 +12,28 @@ Content-Type: application/json
 GET http://localhost:4008/books
 
 ###
-GET http://localhost:4008/search
+POST http://localhost:4008/search
 Content-Type: application/json
 
 {
-    "author": "Paulo Rezzutti"
+    "author": "Ilan"
 }
+
+
+###
+DELETE  http://localhost:4008/delete
+Content-Type: application/json
+
+{
+    "_id": "617a66fd004933070e74a950"
+}
+
 
 ###
 PATCH http://localhost:4008/edit
 Content-Type: application/json
 
 {
-    "_id": "617a65de49316592abd01164",
-    "_id": "001"
+    "_id": "617a66fd004933070e74a94e",
+    "author": "Ilan Pappéeeee"
 }
